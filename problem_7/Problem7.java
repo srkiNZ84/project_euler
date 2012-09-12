@@ -1,27 +1,31 @@
 import java.util.ArrayList;
 
-public class Problem7 {
+public class Problem7{
 	
-	public ArrayList<Double> primes;
+	public ArrayList<Integer> primes;
 
 	public Problem7(){
-		primes = new ArrayList<Double>();
-		primes.add(2d);
-		primes.add(3d);
-		primes.add(5d);
-		primes.add(7d);
-		primes.add(11d);
-		primes.add(13d);
 
-		double number = 13d;
-		while(true){
-			number++;
-			if(isPrime(number)){
-				primes.add(number);
+		primes = new ArrayList<Integer>();
+
+		for(int i = 2; primes.size() < 10001; i++){
+			if(isPrime(i)){
+				primes.add(i);
+				//System.out.println("Added prime " + i + " at position " + primes.size());
 			}
-
-			//TODO: Check the size of the ArrayList and see if we've gotten to the 10 001st element
 		}
+		System.out.println("10,001st prime is: " + primes.get(primes.size() - 1));
+	}
+
+	public boolean isPrime(int number){
+		boolean isPrime = true;
+
+		for(int i = 2; i <= number; i++){
+			if(number % i == 0 && i != number){
+				isPrime = false;
+			}
+		}
+		return isPrime;
 	}
 
 	public static void main(String[] args){
