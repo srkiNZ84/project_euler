@@ -1,42 +1,37 @@
 public class Problem14{
 
-	public int[] chainLength;
-
 	public Problem14(){
-
-		chainLength = new int[2];
+		long[] chainLength = new long[2];
 		chainLength[0] = 0;
 		chainLength[1] = 0;
-		int chainLen;
-		for(int i = 1; i < 1000000; i++){
+		long chainLen;
+
+		for(long i = 1000000; i > 1; i--){
 			chainLen = iteration(i);
 
-			if(chainLen >= chainLength[1]){
+			if(chainLen > chainLength[1]){
 				chainLength[0] = i;
 				chainLength[1] = chainLen;
-				
-				System.out.println("Found the next longest chain for number " + i + ", with length " + chainLen);
 			}
-		
-			//System.out.println("The chain length for the number " + i + " is " + chainLen);	
 		}
+		System.out.println("The greatest chain length is for the number " + chainLength[0] + ", which has a chain length of " + chainLength[1]);
 	}
 
-	public int iteration(int number){
-		int length = 1;
+	public long iteration(long number){
+		long length = 1;
 	
 		if(number == 1){
 			return length;
 		}
 		else if(number % 2 == 0){
-			int recursiveLength = iteration(number/2);
-			return length + recursiveLength;
+			long recursiveLength = iteration(number/2);
+			return length += recursiveLength;
 		}
 		else if(number % 2 == 1){
-			int recursiveLength = iteration((number*3)+1);
-			return length + recursiveLength;
+			long recursiveLength = iteration((number*3)+1);
+			return length += recursiveLength;
 		}
-		return length;		
+		return 0;
 	}
 
 	public static void main(String[] args){
