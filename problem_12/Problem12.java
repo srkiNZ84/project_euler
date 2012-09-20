@@ -1,19 +1,17 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Problem12{
 	
 	public ArrayList<Integer> primeFactors;
+	public Map<Integer,Integer> primeFactorsAndCounts;
 
 	public Problem12(){
-		int limit = 500;
+		int limit = 8;
 		int counter = 1;
 		int triangleNumber;
 		int numDivisors;
 		primeFactors = new ArrayList<Integer>();
 		while(true){
-			if(counter % 10000 == 0){
-				System.out.println("----Trying " + counter);
-			}
 
 			triangleNumber = getTriangle(counter);
 			numDivisors = getNumDivisors(triangleNumber);
@@ -26,19 +24,58 @@ public class Problem12{
 		System.out.println("First to have over " + limit + " divisors is " + triangleNumber + " with " + numDivisors + " divisors.");
 	}
 
-	public void getPrimeFactors(int number){
+	public boolean isPrime(int number){
+                boolean isPrime = true;
 
-		
+                for(int i = 2; i <= number; i++){
+                        if(number % i == 0 && i != number){
+                                isPrime = false;
+                                break;
+                        }
+                }
+                return isPrime;
+        }
 
+	public void getPrimeFactorsAndCounts(int number){
+
+		if(isPrime(number)){
+			int count = primeFactorsAndCounts.containsKey(number) ? (Integer)primeFactorsAndCounts.get(number) : 0;
+                        primeFactorsAndCounts.put(number, count + 1);
+			return;
+		}
+
+		for(int i = 2; i < number; i++){
+			if(number % i == 0 && isPrime(i)){
+				int count = primeFactorsAndCounts.containsKey(i) ? (Integer)primeFactorsAndCounts.get(i) : 0;
+				primeFactorsAndCounts.put(i, count + 1);
+
+				int tempResult = number/i;
+
+				getPrimeFactorsAndCounts(tempResult);
+				break;
+			}
+		}
 	}
 
 	public int getNumDivisors(int number){
-		int result = 0;
-		for(int i = 1; i < number; i++){
-			if(number % i == 0){
-				result++;
-			}
+		
+		primeFactorsAndCounts = new HashMap<Integer,Integer>();
+
+		getPrimeFactorsAndCounts(number);
+
+		System.out.println("Divisors of " + number + " are: " + primeFactorsAndCounts);
+
+		int result = 1;
+		int key;
+		Set set = primeFactorsAndCounts.keySet();
+		Iterator itr = set.iterator();
+		while(itr.hasNext()){
+			key = (Integer)itr.next();
+			result *= primeFactorsAndCounts.get(key)+1;
+
+			System.out.println("Result is: " + result);
 		}
+
 		return result;
 	}
 
