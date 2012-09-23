@@ -6,7 +6,7 @@ public class Problem12{
 	public Map<Integer,Integer> primeFactorsAndCounts;
 
 	public Problem12(){
-		int limit = 8;
+		int limit = 500;
 		int counter = 1;
 		int triangleNumber;
 		int numDivisors;
