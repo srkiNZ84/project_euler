@@ -10,15 +10,11 @@ public class Problem17{
 		initializeHash();
 	
 		int sum = 0;
-		for(int i = 1; i <= 30;i++){
+		for(int i = 1; i < 1000;i++){
 			sum += getNumLetters(i);
 		}
+		sum += 11; //Hack to add "one thousand" to the final total
 		System.out.println("Total number of letters is: " + sum);
-
-		System.out.println("Number of letters in 300 (three hundred) should be 12: " + getNumLetters(300));
-		System.out.println("Number of letters in 42 (forty-two) should be 8: " + getNumLetters(42));
-		System.out.println("Number of letters in 342 (three hundred and forty-two) should be 23: " + getNumLetters(342));
-
 	}
 
 	public void initializeHash(){
@@ -54,18 +50,33 @@ public class Problem17{
 
 	public int getHundreds(int number){
 		if(number > 99){
-			int prefixLength = directLookup(number/100).length();
+			int prefixLength = directLookup(number / 100).length();
                         int hundredLength = directLookup(100).length();
 
                         return prefixLength + hundredLength;
 		}
-		
 		return 0;
 	}
 
 	public int getTens(int number){
-		if(number > 19){
+		int remainder = number % 100;
+		if(remainder > 19){
+			if(remainder != 0){
+				return directLookup((remainder / 10) * 10).length();
+			}
+		}
+		return 0;
+	}
 
+	public int getOnes(int number){
+		int remainder = number % 100;
+		if(remainder < 20 && remainder > 0){
+			return directLookup(remainder).length();
+		}
+
+		remainder = number % 10;
+		if(number % 10 != 0){
+			return directLookup(number % 10).length();
 		}
 		return 0;
 	}
@@ -76,40 +87,17 @@ public class Problem17{
 		int tens = getTens(number);
 		int ones = getOnes(number);
 
-		if(hundreds > 0 && (tens + ones) > 0){
-			hundreds += 3;
-		}
-
-		return getHundreds(number) + 3 + getTens(number) + getOnes(number);
-
-		if(number < 20){
-			return directLookup(number).length();
-		}
-		else if(number % 100 == 0){
-			int prefixLength = directLookup(number/100).length();
-			int hundredLength = directLookup(100).length();
-
-			return prefixLength + hundredLength;
-		}
-		else if(number % 10 == 0 && number < 100){
-			return directLookup(number).length();
-		}
-		else if(number > 20 && number < 100){
-			int prefixLength = directLookup((number/10)*10).length();
-			int suffixLength = directLookup(number%10).length();
-
-			return prefixLength + suffixLength;
+		if(number % 100 == 0 || number < 100){
+			return hundreds + tens + ones;
 		}
 		else{
-			int hundredLength = directLookup((number/100)*100).length();
-			int  
+			return hundreds + 3 + tens + ones;
 		}
 
-		return 0;
 	}
 
 	public String directLookup(int number){
-		System.out.println("Getting: " + numbersMap.get(number));
+		//System.out.println("Getting: " + numbersMap.get(number));
 		return numbersMap.get(number);
 	}
 
