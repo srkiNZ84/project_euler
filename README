@@ -1,16 +1,11 @@
 Introduction
+============
 This repository is used to house the code for the solutions to problems on projecteuler.net. As described on the website itself, Project Euler is a website which provides mathematical/computational puzzles, which are fun to do and force you to keep your programming, mathematical and analytical skills sharp.
 
 Usage
+=====
 All of the files in this repository should be simple Java code files. They should run on all Java installs, as long as the standard library is there. The code in these files is available online from: https://github.com/srkiNZ84/project_euler
 
 License
-All of the files in this project are licensed under the Apache version 2 license, as detailed in the "License" file, unless specified otherwise.
 =======
-This repository is used to house the code for the solutions to the problems on the projecteuler.net website. The website hosts a range of programming/mathematical puzzles, which while fun to do, also keep your programming skills sharp.
-
-Usage
-All of the files in this repository should be simple Java code files. They should run on all Java installs, as long as the standard library is there.
-
-License
-The code is licensed under an Apache version 2 license unless otherwise stated.
+All of the files in this project are licensed under the Apache version 2 license, as detailed in the "License" file, unless specified otherwise. 
