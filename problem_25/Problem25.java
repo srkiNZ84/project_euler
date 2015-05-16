@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.math.BigInteger;
 
 public class Problem25{
 
@@ -10,32 +11,26 @@ public class Problem25{
 	}
 
 	public void fibionacci(){
-		int n = 3;
-		int nold = 1;
-		int noldold = 1;
-		int funcResult = 0;
-		int numDigits = 0;
-		double divisor = 0;
+		BigInteger n = new BigInteger("3");
+		BigInteger nminus1 = new BigInteger("1");
+		BigInteger nminus2 = new BigInteger("1");
+		BigInteger funcResult = new BigInteger("0");
+		
+		BigInteger limit = new BigInteger("10");
+		limit = limit.pow(999);
+		//System.out.println("Limit is: " + limit);
 
 		while(true){
-			if(n >= 50){
+			if(funcResult.compareTo(limit) >= 0){
 				System.out.println("Hit limt. Exiting.");
 				System.exit(0);
 			}
-			funcResult = nold + noldold;
-			numDigits = getDigits(funcResult);
-			divisor = (n/5)+0.5;
-			System.out.println("F" + n + " is: " + funcResult + "\t" + getDigits(funcResult) + "\t" + divisor);
-			noldold = nold;
-			nold = funcResult;
-			n++;
+			funcResult = nminus1.add(nminus2);
+			System.out.println("F" + n);
+			nminus2 = nminus1;
+			nminus1 = funcResult;
+			n = n.add(BigInteger.ONE);
 		}
-	}
-
-	public int getDigits(int n){
-		int length = 0;
-		length = Integer.toString(n).length();
-		return length;
 	}
 
 	public static void main(String[] args){
